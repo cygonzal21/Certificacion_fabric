@@ -23,6 +23,7 @@ services:
       service: hyperledger-fabric
     environment:
       - FABRIC_LOGGING_SPEC=INFO
+      - FABRIC_LOGGING_FORMAT=json
       - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
       - ORDERER_GENERAL_LISTENPORT=7050
       - ORDERER_GENERAL_LOCALMSPID=OrdererMSP
@@ -38,7 +39,7 @@ services:
       - ORDERER_GENERAL_BOOTSTRAPMETHOD=none
       - ORDERER_CHANNELPARTICIPATION_ENABLED=true
       - ORDERER_ADMIN_TLS_ENABLED=true
-      - ORDERER_ADMIN_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/servre.crt
+      - ORDERER_ADMIN_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/server.crt
       - ORDERER_ADMIN_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key
       - ORDERER_ADMIN_TLS_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
       - ORDERER_ADMIN_TLS_CLIENTROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
@@ -65,7 +66,8 @@ services:
       service: hyperledger-fabric
     environment:
       - FABRIC_CFG_PATH=/etc/hyperledger/peercfg
-      - FABRIC_LOGGING_SPEC=INFO
+      - FABRIC_LOGGING_SPEC=debug:gossip=warning:chaincode=info
+      - FABRIC_LOGGING_FORMAT='%{color} [%{module}] %{shortfunc} -> %{level:.4s} %{id:03x}%{color:reset} %{message} %{time:2006-01-02 15:04:05.000 MST}'
       - CORE_PEER_TLS_ENABLED=true
       - CORE_PEER_PROFILE_ENABLED=false
       - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/fabric/tls/server.crt
@@ -86,7 +88,7 @@ services:
       - CHAINCODE_AS_A_SERVICE_BUILDER_CONFIG={"peername":"peer0org1"}
       - CORE_CHAINCODE_EXECUTETIMEOUT=300s
     volumes:
-      - ../organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com:/etc/hypreledger/fabric
+      - ../organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com:/etc/hyperledger/fabric
       - peer0.org1.example.com:/var/hyperledger/production
     working_dir: /root
     command: peer node start
@@ -103,7 +105,8 @@ services:
       service: hyperledger-fabric
     environment:
       - FABRIC_CFG_PATH=/etc/hyperledger/peercfg
-      - FABRIC_LOGGING_SPEC=INFO
+      - FABRIC_LOGGING_SPEC=debug:gossip=warning:chaincode=info
+      - FABRIC_LOGGING_FORMAT='%{color} [%{module}] %{shortfunc} -> %{level:.4s} %{id:03x}%{color:reset} %{message} %{time:2006-01-02 15:04:05.000 MST}'      
       - CORE_PEER_TLS_ENABLED=true
       - CORE_PEER_PROFILE_ENABLED=false
       - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/fabric/tls/server.crt

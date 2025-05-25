@@ -86,7 +86,7 @@ class AssetTransfer extends Contract {
         // we insert data in alphabetic order using 'json-stringify-deterministic' and 'sort-keys-recursive'
         await ctx.stub.putState(id, Buffer.from(stringify(sortKeysRecursive(asset))));
         return JSON.stringify(asset);
-
+    }
 
     // ReadAsset returns the asset stored in the world state with given id.
     async ReadAsset(ctx, id) {
